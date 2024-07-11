@@ -1,0 +1,723 @@
+[
+  {
+    "id": 1,
+    "name": "Birthday card 1",
+    "image": "birthday card/1bd.png",
+    "price": "$5.00",
+    "category": "Birthday card"
+  },
+  {
+    "id": 2,
+    "name": "Birthday card 2",
+    "image": "birthday card/2bd.png",
+    "price": "$5.00",
+    "category": "Birthday card"
+  },
+  {
+    "id": 3,
+    "name": "Birthday card 3",
+    "image": "birthday card/3bd.png",
+    "price": "$5.00",
+    "category": "Birthday card"
+  },
+  {
+    "id": 4,
+    "name": "Birthday card 4",
+    "image": "birthday card/4bd.png",
+    "price": "$5.00",
+    "category": "Birthday card"
+  },
+  {
+    "id": 5,
+    "name": "Birthday card 5",
+    "image": "birthday card/5bd.png",
+    "price": "$5.00",
+    "category": "Birthday card"
+  },
+  {
+    "id": 6,
+    "name": "Birthday card 6",
+    "image": "birthday card/6bd.png",
+    "price": "$5.00",
+    "category": "Birthday card"
+  },
+  {
+    "id": 7,
+    "name": "Birthday card 7",
+    "image": "birthday card/7bd.png",
+    "price": "$5.00",
+    "category": "Birthday card"
+  },
+  {
+    "id": 8,
+    "name": "Birthday card 8",
+    "image": "birthday card/8bd.png",
+    "price": "$5.00",
+    "category": "Birthday card"
+  },
+  {
+    "id": 9,
+    "name": "Birthday card 9",
+    "image": "birthday card/9bd.png",
+    "price": "$5.00",
+    "category": "Birthday card"
+  },
+  {
+    "id": 10,
+    "name": "Birthday card 10",
+    "image": "birthday card/10bd.png",
+    "price": "$5.00",
+    "category": "Birthday card"
+  },
+  {
+    "id": 11,
+    "name": "Birthday card 11",
+    "image": "birthday card/11bd.png",
+    "price": "$5.00",
+    "category": "Birthday card"
+  },
+  {
+    "id": 12,
+    "name": "Birthday card 12",
+    "image": "birthday card/12bd.png",
+    "price": "$5.00",
+    "category": "Birthday card"
+  },
+  {
+    "id": 13,
+    "name": "Birthday card 13",
+    "image": "birthday card/13bd.png",
+    "price": "$5.00",
+    "category": "Birthday card"
+  },
+  {
+    "id": 14,
+    "name": "Birthday card 14",
+    "image": "birthday card/14bd.png",
+    "price": "$5.00",
+    "category": "Birthday card"
+  },
+  {
+    "id": 15,
+    "name": "Birthday card 15",
+    "image": "birthday card/15bd.png",
+    "price": "$5.00",
+    "category": "Birthday card"
+  },
+  {
+    "id": 16,
+    "name": "Birthday card 16",
+    "image": "birthday card/16bd.png",
+    "price": "$5.00",
+    "category": "Birthday card"
+  },
+  {
+    "id": 17,
+    "name": "Birthday card 17",
+    "image": "birthday card/17bd.png",
+    "price": "$5.00",
+    "category": "Birthday card"
+  },
+  {
+    "id": 18,
+    "name": "Birthday card 18",
+    "image": "birthday card/18bd.png",
+    "price": "$5.00",
+    "category": "Birthday card"
+  },
+  {
+    "id": 19,
+    "name": "Birthday card 19",
+    "image": "birthday card/19bd.png",
+    "price": "$5.00",
+    "category": "Birthday card"
+  },
+  {
+    "id": 20,
+    "name": "Birthday card 20",
+    "image": "birthday card/20bd.png",
+    "price": "$5.00",
+    "category": "Birthday card"
+  },
+  {
+    "id": 21,
+    "name": "Birthday card 21",
+    "image": "birthday card/21bd.png",
+    "price": "$5.00",
+    "category": "Birthday card"
+  },
+  {
+    "id": 22,
+    "name": "Birthday card 22",
+    "image": "birthday card/22bd.png",
+    "price": "$5.00",
+    "category": "Birthday card"
+  },
+  {
+    "id": 23,
+    "name": "Birthday card 23",
+    "image": "birthday card/23bd.png",
+    "price": "$5.00",
+    "category": "Birthday card"
+  },
+  {
+    "id": 24,
+    "name": "Birthday card 24",
+    "image": "birthday card/24bd.png",
+    "price": "$5.00",
+    "category": "Birthday card"
+  },
+  {
+    "id": 25,
+    "name": "Birthday card 25",
+    "image": "birthday card/25bd.png",
+    "price": "$5.00",
+    "category": "Birthday card"
+  },
+  {
+    "id": 26,
+    "name": "Birthday card 26",
+    "image": "birthday card/26bd.png",
+    "price": "$5.00",
+    "category": "Birthday card"
+  },
+  {
+    "id": 27,
+    "name": "Birthday card 27",
+    "image": "birthday card/27bd.png",
+    "price": "$5.00",
+    "category": "Birthday card"
+  },
+  {
+    "id": 28,
+    "name": "Birthday card 28",
+    "image": "birthday card/28bd.png",
+    "price": "$5.00",
+    "category": "Birthday card"
+  },
+  {
+    "id": 29,
+    "name": "Birthday card 29",
+    "image": "birthday card/29bd.png",
+    "price": "$5.00",
+    "category": "Birthday card"
+  },
+  {
+    "id": 30,
+    "name": "Birthday card 30",
+    "image": "birthday card/30bd.png",
+    "price": "$5.00",
+    "category": "Birthday card"
+  },
+  {
+    "id": 31,
+    "name": "Birthday card 31",
+    "image": "birthday card/31bd.png",
+    "price": "$5.00",
+    "category": "Birthday card"
+  },
+  {
+    "id": 32,
+    "name": "Birthday card 32",
+    "image": "birthday card/32bd.png",
+    "price": "$5.00",
+    "category": "Birthday card"
+  },
+  {
+    "id": 1,
+    "name": "Christmas card 1",
+    "image": "christmas card/1c.png",
+    "price": "$5.00",
+    "category": "Christmas card"
+  },
+  {
+    "id": 2,
+    "name": "Christmas card 2",
+    "image": "christmas card/2c.png",
+    "price": "$5.00",
+    "category": "Christmas card"
+  },
+  {
+    "id": 3,
+    "name": "Christmas card 3",
+    "image": "christmas card/3c.png",
+    "price": "$5.00",
+    "category": "Christmas card"
+  },
+  {
+    "id": 4,
+    "name": "Christmas card 4",
+    "image": "christmas card/4c.png",
+    "price": "$5.00",
+    "category": "Christmas card"
+  },
+  {
+    "id": 5,
+    "name": "Christmas card 5",
+    "image": "christmas card/5c.png",
+    "price": "$5.00",
+    "category": "Christmas card"
+  },
+  {
+    "id": 6,
+    "name": "Christmas card 6",
+    "image": "christmas card/6c.png",
+    "price": "$5.00",
+    "category": "Christmas card"
+  },
+  {
+    "id": 7,
+    "name": "Christmas card 7",
+    "image": "christmas card/7c.png",
+    "price": "$5.00",
+    "category": "Christmas card"
+  },
+  {
+    "id": 8,
+    "name": "Christmas card 8",
+    "image": "christmas card/8c.png",
+    "price": "$5.00",
+    "category": "Christmas card"
+  },
+  {
+    "id": 9,
+    "name": "Christmas card 9",
+    "image": "christmas card/9c.png",
+    "price": "$5.00",
+    "category": "Christmas card"
+  },
+  {
+    "id": 10,
+    "name": "Christmas card 10",
+    "image": "christmas card/10c.png",
+    "price": "$5.00",
+    "category": "Christmas card"
+  },
+  {
+    "id": 11,
+    "name": "Christmas card 11",
+    "image": "christmas card/11c.png",
+    "price": "$5.00",
+    "category": "Christmas card"
+  },
+  {
+    "id": 12,
+    "name": "Christmas card 12",
+    "image": "christmas card/12c.png",
+    "price": "$5.00",
+    "category": "Christmas card"
+  },
+  {
+    "id": 13,
+    "name": "Christmas card 13",
+    "image": "christmas card/13c.png",
+    "price": "$5.00",
+    "category": "Christmas card"
+  },
+  {
+    "id": 14,
+    "name": "Christmas card 14",
+    "image": "christmas card/14c.png",
+    "price": "$5.00",
+    "category": "Christmas card"
+  },
+  {
+    "id": 15,
+    "name": "Christmas card 15",
+    "image": "christmas card/15c.png",
+    "price": "$5.00",
+    "category": "Christmas card"
+  },
+  {
+    "id": 16,
+    "name": "Christmas card 16",
+    "image": "christmas card/16c.png",
+    "price": "$5.00",
+    "category": "Christmas card"
+  },
+  {
+    "id": 17,
+    "name": "Christmas card 17",
+    "image": "christmas card/17c.png",
+    "price": "$5.00",
+    "category": "Christmas card"
+  },
+  {
+    "id": 18,
+    "name": "Christmas card 18",
+    "image": "christmas card/18c.png",
+    "price": "$5.00",
+    "category": "Christmas card"
+  },
+  {
+    "id": 19,
+    "name": "Christmas card 19",
+    "image": "christmas card/19c.png",
+    "price": "$5.00",
+    "category": "Christmas card"
+  },
+  {
+    "id": 20,
+    "name": "Christmas card 20",
+    "image": "christmas card/20c.png",
+    "price": "$5.00",
+    "category": "Christmas card"
+  },
+  {
+    "id": 21,
+    "name": "Christmas card 21",
+    "image": "christmas card/21c.png",
+    "price": "$5.00",
+    "category": "Christmas card"
+  },
+  {
+    "id": 22,
+    "name": "Christmas card 22",
+    "image": "christmas card/22c.png",
+    "price": "$5.00",
+    "category": "Christmas card"
+  },
+  {
+    "id": 1,
+    "name": "Thanksgiving card 1",
+    "image": "thanksgiving/1tg.png",
+    "price": "$5.00",
+    "category": "Thanksgiving card"
+  },
+  {
+    "id": 2,
+    "name": "Thanksgiving card 2",
+    "image": "thanksgiving/2tg.png",
+    "price": "$5.00",
+    "category": "Thanksgiving card"
+  },
+  {
+    "id": 3,
+    "name": "Thanksgiving card 3",
+    "image": "thanksgiving/3tg.png",
+    "price": "$5.00",
+    "category": "Thanksgiving card"
+  },
+  {
+    "id": 4,
+    "name": "Thanksgiving card 4",
+    "image": "thanksgiving/4tg.png",
+    "price": "$5.00",
+    "category": "Thanksgiving card"
+  },
+  {
+    "id": 5,
+    "name": "Thanksgiving card 5",
+    "image": "thanksgiving/5tg.png",
+    "price": "$5.00",
+    "category": "Thanksgiving card"
+  },
+  {
+    "id": 6,
+    "name": "Thanksgiving card 6",
+    "image": "thanksgiving/6tg.png",
+    "price": "$5.00",
+    "category": "Thanksgiving card"
+  },
+  {
+    "id": 7,
+    "name": "Thanksgiving card 7",
+    "image": "thanksgiving/7tg.png",
+    "price": "$5.00",
+    "category": "Thanksgiving card"
+  },
+  {
+    "id": 8,
+    "name": "Thanksgiving card 8",
+    "image": "thanksgiving/8tg.png",
+    "price": "$5.00",
+    "category": "Thanksgiving card"
+  },
+  {
+    "id": 9,
+    "name": "Thanksgiving card 9",
+    "image": "thanksgiving/9tg.png",
+    "price": "$5.00",
+    "category": "Thanksgiving card"
+  },
+  {
+    "id": 10,
+    "name": "Thanksgiving card 10",
+    "image": "thanksgiving/10tg.png",
+    "price": "$5.00",
+    "category": "Thanksgiving card"
+  },
+  {
+    "id": 11,
+    "name": "Thanksgiving card 11",
+    "image": "thanksgiving/11tg.png",
+    "price": "$5.00",
+    "category": "Thanksgiving card"
+  },
+  {
+    "id": 12,
+    "name": "Thanksgiving card 12",
+    "image": "thanksgiving/12tg.png",
+    "price": "$5.00",
+    "category": "Thanksgiving card"
+  },
+  {
+    "id": 13,
+    "name": "Thanksgiving card 13",
+    "image": "thanksgiving/13tg.png",
+    "price": "$5.00",
+    "category": "Thanksgiving card"
+  },
+  {
+    "id": 14,
+    "name": "Thanksgiving card 14",
+    "image": "thanksgiving/14tg.png",
+    "price": "$5.00",
+    "category": "Thanksgiving card"
+  },
+  {
+    "id": 15,
+    "name": "Thanksgiving card 15",
+    "image": "thanksgiving/15tg.png",
+    "price": "$5.00",
+    "category": "Thanksgiving card"
+  },
+  {
+    "id": 16,
+    "name": "Thanksgiving card 16",
+    "image": "thanksgiving/16tg.png",
+    "price": "$5.00",
+    "category": "Thanksgiving card"
+  },
+  {
+    "id": 17,
+    "name": "Thanksgiving card 17",
+    "image": "thanksgiving/17tg.png",
+    "price": "$5.00",
+    "category": "Thanksgiving card"
+  },
+  {
+    "id": 18,
+    "name": "Thanksgiving card 18",
+    "image": "thanksgiving/18tg.png",
+    "price": "$5.00",
+    "category": "Thanksgiving card"
+  },
+  {
+    "id": 19,
+    "name": "Thanksgiving card 19",
+    "image": "thanksgiving/19tg.png",
+    "price": "$5.00",
+    "category": "Thanksgiving card"
+  },
+  {
+    "id": 20,
+    "name": "Thanksgiving card 20",
+    "image": "thanksgiving/20tg.png",
+    "price": "$5.00",
+    "category": "Thanksgiving card"
+  },
+  {
+    "id": 21,
+    "name": "Thanksgiving card 21",
+    "image": "thanksgiving/21tg.png",
+    "price": "$5.00",
+    "category": "Thanksgiving card"
+  },
+  {
+    "id": 22,
+    "name": "Thanksgiving card 22",
+    "image": "thanksgiving/22tg.png",
+    "price": "$5.00",
+    "category": "Thanksgiving card"
+  },
+  {
+    "id": 23,
+    "name": "Thanksgiving card 23",
+    "image": "thanksgiving/23tg.png",
+    "price": "$5.00",
+    "category": "Thanksgiving card"
+  },
+  {
+    "id": 24,
+    "name": "Thanksgiving card 24",
+    "image": "thanksgiving/24tg.png",
+    "price": "$5.00",
+    "category": "Thanksgiving card"
+  },
+  {
+    "id": 1,
+    "name": "Valentine card 1",
+    "image": "valentine card/1.png",
+    "price": "$5.00",
+    "category": "Valentine card"
+  },
+  {
+    "id": 2,
+    "name": "Valentine card 2",
+    "image": "valentine card/2.png",
+    "price": "$5.00",
+    "category": "Valentine card"
+  },
+  {
+    "id": 3,
+    "name": "Valentine card 3",
+    "image": "valentine card/3.png",
+    "price": "$5.00",
+    "category": "Valentine card"
+  },
+  {
+    "id": 4,
+    "name": "Valentine card 4",
+    "image": "valentine card/4.png",
+    "price": "$5.00",
+    "category": "Valentine card"
+  },
+  {
+    "id": 5,
+    "name": "Valentine card 5",
+    "image": "valentine card/5.png",
+    "price": "$5.00",
+    "category": "Valentine card"
+  },
+  {
+    "id": 6,
+    "name": "Valentine card 6",
+    "image": "valentine card/6.png",
+    "price": "$5.00",
+    "category": "Valentine card"
+  },
+  {
+    "id": 7,
+    "name": "Valentine card 7",
+    "image": "valentine card/7.png",
+    "price": "$5.00",
+    "category": "Valentine card"
+  },
+  {
+    "id": 8,
+    "name": "Valentine card 8",
+    "image": "valentine card/8.png",
+    "price": "$5.00",
+    "category": "Valentine card"
+  },
+  {
+    "id": 9,
+    "name": "Valentine card 9",
+    "image": "valentine card/9.png",
+    "price": "$5.00",
+    "category": "Valentine card"
+  },
+  {
+    "id": 10,
+    "name": "Valentine card 10",
+    "image": "valentine card/10.png",
+    "price": "$5.00",
+    "category": "Valentine card"
+  },
+  {
+    "id": 11,
+    "name": "Valentine card 11",
+    "image": "valentine card/11.png",
+    "price": "$5.00",
+    "category": "Valentine card"
+  },
+  {
+    "id": 12,
+    "name": "Valentine card 12",
+    "image": "valentine card/12.png",
+    "price": "$5.00",
+    "category": "Valentine card"
+  },
+  {
+    "id": 13,
+    "name": "Valentine card 13",
+    "image": "valentine card/13.png",
+    "price": "$5.00",
+    "category": "Valentine card"
+  },
+  {
+    "id": 14,
+    "name": "Valentine card 14",
+    "image": "valentine card/14.png",
+    "price": "$5.00",
+    "category": "Valentine card"
+  },
+  {
+    "id": 15,
+    "name": "Valentine card 15",
+    "image": "valentine card/15.png",
+    "price": "$5.00",
+    "category": "Valentine card"
+  },
+  {
+    "id": 16,
+    "name": "Valentine card 16",
+    "image": "valentine card/16.png",
+    "price": "$5.00",
+    "category": "Valentine card"
+  },
+  {
+    "id": 17,
+    "name": "Valentine card 17",
+    "image": "valentine card/17.png",
+    "price": "$5.00",
+    "category": "Valentine card"
+  },
+  {
+    "id": 18,
+    "name": "Valentine card 18",
+    "image": "valentine card/18.png",
+    "price": "$5.00",
+    "category": "Valentine card"
+  },
+  {
+    "id": 19,
+    "name": "Valentine card 19",
+    "image": "valentine card/19.png",
+    "price": "$5.00",
+    "category": "Valentine card"
+  },
+  {
+    "id": 20,
+    "name": "Valentine card 20",
+    "image": "valentine card/20.png",
+    "price": "$5.00",
+    "category": "Valentine card"
+  },
+  {
+    "id": 21,
+    "name": "Valentine card 21",
+    "image": "valentine card/21.png",
+    "price": "$5.00",
+    "category": "Valentine card"
+  },
+  {
+    "id": 22,
+    "name": "Valentine card 22",
+    "image": "valentine card/22.png",
+    "price": "$5.00",
+    "category": "Valentine card"
+  },
+  {
+    "id": 23,
+    "name": "Valentine card 23",
+    "image": "valentine card/23.png",
+    "price": "$5.00",
+    "category": "Valentine card"
+  },
+  {
+    "id": 24,
+    "name": "Valentine card 24",
+    "image": "valentine card/24.png",
+    "price": "$5.00",
+    "category": "Valentine card"
+  },
+  {
+    "id": 25,
+    "name": "Valentine card 25",
+    "image": "valentine card/25.png",
+    "price": "$5.00",
+    "category": "Valentine card"
+  }
+]

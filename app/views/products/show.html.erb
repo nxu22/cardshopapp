@@ -1,0 +1,7 @@
+<h1><%= @product.name %></h1>
+
+<%= image_tag @product.image if @product.image.present? %><br>
+<p>Price: <%= number_to_currency(@product.price) %></p>
+<p>Category: <%= link_to @product.category.name, category_path(@product.category) %></p>
+
+<%= link_to 'Back to Products', products_path %>
