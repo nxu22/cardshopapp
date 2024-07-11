@@ -1,0 +1,39 @@
+<!-- app/views/categories/show.html.erb -->
+<h1><%= @category.name %> Products</h1>
+
+<div class="buttons">
+  <%= link_to 'All Products', products_path, class: 'button is-link' %>
+  <% Category.all.each do |category| %>
+    <%= link_to category.name, category_path(category), class: 'button is-link' %>
+  <% end %>
+</div>
+
+<% if @products.present? %>
+  <div class="section">
+    <div class="columns is-multiline">
+      <% @products.each do |product| %>
+        <div class="column is-one-quarter">
+          <div class="card">
+            <div class="card-image">
+              <% if product.image.present? %>
+                <figure class="image is-4by3">
+                  <%= image_tag product.image %>
+                </figure>
+              <% end %>
+            </div>
+            <div class="card-content">
+              <div class="media">
+                <div class="media-content">
+                  <p class="title is-4"><%= link_to product.name, product_path(product) %></p>
+                  <p class="subtitle is-6"><%= number_to_currency(product.price) %></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% else %>
+  <p>No products found for this category.</p>
+<% end %>
