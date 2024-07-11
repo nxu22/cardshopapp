@@ -1,4 +1,3 @@
-<!-- app/views/products/index.html.erb -->
 <h1 class="title is-1"><%= params[:category] ? params[:category] : 'All Products' %></h1>
 
 <% if logged_in? %>
@@ -18,6 +17,21 @@
     </div>
     <div class="control">
       <button class="button is-link" type="submit">Search</button>
+    </div>
+  </div>
+  <div class="field">
+    <div class="control">
+      <div class="select">
+        <select name="filter">
+          <option value="">All Products</option>
+          <option value="on_sale">On Sale</option>
+          <option value="new">New Products</option>
+          <option value="recently_updated">Recently Updated</option>
+        </select>
+      </div>
+    </div>
+    <div class="control">
+      <button class="button is-link" type="submit">Filter</button>
     </div>
   </div>
 <% end %>
