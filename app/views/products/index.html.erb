@@ -1,111 +1,51 @@
-<h1 class="title is-1">All Products</h1>
+<h1 class="title is-1"><%= params[:category] ? params[:category] : 'All Products' %></h1>
 
-<%= link_to 'Categories', categories_path, class: 'button is-link' %>
+<%= form_with url: search_products_path, method: :get, local: true, class: 'search-form' do %>
+  <div class="field has-addons">
+    <div class="control">
+      <input class="input" type="text" name="query" placeholder="Search for products...">
+    </div>
+    <div class="control">
+      <button class="button is-link" type="submit">Search</button>
+    </div>
+  </div>
+<% end %>
 
-<div class="section">
-  <h2 class="title is-2">Birthday Card</h2>
-  <div class="columns is-multiline">
-    <% @birthday_products.each do |product| %>
-      <div class="column is-one-quarter">
-        <div class="card">
-          <div class="card-image">
-            <% if product.image.present? %>
-              <figure class="image is-4by3">
-                <%= image_tag product.image %>
-              </figure>
-            <% end %>
-          </div>
-          <div class="card-content">
-            <div class="media">
-              <div class="media-content">
-                <p class="title is-4"><%= link_to product.name, product_path(product) %></p>
-                <p class="subtitle is-6"><%= number_to_currency(product.price) %></p>
+<div class="buttons">
+  <%= link_to 'All Products', products_path, class: 'button is-link' %>
+  <%= link_to 'Birthday card', category_products_path(category: 'Birthday card'), class: 'button is-link' %>
+  <%= link_to 'Christmas card', category_products_path(category: 'Christmas card'), class: 'button is-link' %>
+  <%= link_to 'Thanksgiving card', category_products_path(category: 'Thanksgiving card'), class: 'button is-link' %>
+  <%= link_to 'Valentine card', category_products_path(category: 'Valentine card'), class: 'button is-link' %>
+</div>
+
+<% if @products.present? %>
+  <div class="section">
+    <h2 class="title is-2"><%= params[:category] ? params[:category] : 'All Products' %></h2>
+    <div class="columns is-multiline">
+      <% @products.each do |product| %>
+        <div class="column is-one-quarter">
+          <div class="card">
+            <div class="card-image">
+              <% if product.image.present? %>
+                <figure class="image is-4by3">
+                  <%= image_tag product.image %>
+                </figure>
+              <% end %>
+            </div>
+            <div class="card-content">
+              <div class="media">
+                <div class="media-content">
+                  <p class="title is-4"><%= link_to product.name, product_path(product) %></p>
+                  <p class="subtitle is-6"><%= number_to_currency(product.price) %></p>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    <% end %>
+      <% end %>
+    </div>
   </div>
-</div>
-
-<div class="section">
-  <h2 class="title is-2">Christmas Card</h2>
-  <div class="columns is-multiline">
-    <% @christmas_products.each do |product| %>
-      <div class="column is-one-quarter">
-        <div class="card">
-          <div class="card-image">
-            <% if product.image.present? %>
-              <figure class="image is-4by3">
-                <%= image_tag product.image %>
-              </figure>
-            <% end %>
-          </div>
-          <div class="card-content">
-            <div class="media">
-              <div class="media-content">
-                <p class="title is-4"><%= link_to product.name, product_path(product) %></p>
-                <p class="subtitle is-6"><%= number_to_currency(product.price) %></p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    <% end %>
-  </div>
-</div>
-
-<div class="section">
-  <h2 class="title is-2">Thanksgiving Card</h2>
-  <div class="columns is-multiline">
-    <% @thanksgiving_products.each do |product| %>
-      <div class="column is-one-quarter">
-        <div class="card">
-          <div class="card-image">
-            <% if product.image.present? %>
-              <figure class="image is-4by3">
-                <%= image_tag product.image %>
-              </figure>
-            <% end %>
-          </div>
-          <div class="card-content">
-            <div class="media">
-              <div class="media-content">
-                <p class="title is-4"><%= link_to product.name, product_path(product) %></p>
-                <p class="subtitle is-6"><%= number_to_currency(product.price) %></p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    <% end %>
-  </div>
-</div>
-
-<div class="section">
-  <h2 class="title is-2">Valentine Card</h2>
-  <div class="columns is-multiline">
-    <% @valentine_products.each do |product| %>
-      <div class="column is-one-quarter">
-        <div class="card">
-          <div class="card-image">
-            <% if product.image.present? %>
-              <figure class="image is-4by3">
-                <%= image_tag product.image %>
-              </figure>
-            <% end %>
-          </div>
-          <div class="card-content">
-            <div class="media">
-              <div class="media-content">
-                <p class="title is-4"><%= link_to product.name, product_path(product) %></p>
-                <p class="subtitle is-6"><%= number_to_currency(product.price) %></p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    <% end %>
-  </div>
-</div>
+<% else %>
+  <p>No products found.</p>
+<% end %>

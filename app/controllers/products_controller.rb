@@ -1,13 +1,16 @@
+# app/controllers/products_controller.rb
 class ProductsController < ApplicationController
   def index
-    @products = Product.all
-    @birthday_products = Product.joins(:category).where(categories: { name: 'Birthday card' })
-    @christmas_products = Product.joins(:category).where(categories: { name: 'Christmas card' })
-    @thanksgiving_products = Product.joins(:category).where(categories: { name: 'Thanksgiving card' })
-    @valentine_products = Product.joins(:category).where(categories: { name: 'Valentine card' })
-  end
-
-  def show
-    @product = Product.find(params[:id])
+    if params[:category]
+      @category = Category.find_by(name: params[:category])
+      if @category
+        @products = @category.products
+      else
+        @products = Product.none
+        flash[:alert] = "Category not found"
+      end
+    else
+      @products = Product.all
+    end
   end
 end
