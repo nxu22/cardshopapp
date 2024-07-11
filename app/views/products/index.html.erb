@@ -1,4 +1,15 @@
+<!-- app/views/products/index.html.erb -->
 <h1 class="title is-1"><%= params[:category] ? params[:category] : 'All Products' %></h1>
+
+<% if logged_in? %>
+  <p>Welcome, <%= current_user.username %>!</p>
+  <%= form_with(url: logout_path, method: :delete, class: 'button_to') do %>
+    <%= submit_tag 'Logout', class: 'button is-link' %>
+  <% end %>
+<% else %>
+  <%= link_to 'Login', login_path, class: 'button is-link' %>
+  <%= link_to 'Sign Up', signup_path, class: 'button is-link' %>
+<% end %>
 
 <%= form_with url: products_path, method: :get, local: true, class: 'search-form' do %>
   <div class="field has-addons">
