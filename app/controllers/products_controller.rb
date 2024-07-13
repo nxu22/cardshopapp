@@ -1,7 +1,8 @@
 class ProductsController < ApplicationController
   def index
     @products = Product.all
-
+    @user = current_user
+    
     if params[:category]
       @category = Category.find_by(name: params[:category])
       if @category
