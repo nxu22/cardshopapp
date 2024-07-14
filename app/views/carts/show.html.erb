@@ -1,0 +1,17 @@
+<h1>Your Cart</h1>
+
+<% if @cart_items.any? %>
+  <ul>
+    <% @cart_items.each do |item| %>
+      <li>
+        <%= item.product.name %> - <%= item.quantity %> - <%= number_to_currency(item.product.price) %>
+        <%= button_to 'Remove', remove_from_cart_path(product_id: item.product.id), method: :delete %>
+      </li>
+    <% end %>
+  </ul>
+  <p>Total: <%= number_to_currency(@cart_items.sum { |item| item.product.price * item.quantity }) %></p>
+<% else %>
+  <p>Your cart is empty.</p>
+<% end %>
+
+<%= link_to 'Continue Shopping', products_path %>
