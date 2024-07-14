@@ -10,12 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_10_232156) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_14_215948) do
   create_table "cart_items", force: :cascade do |t|
     t.integer "shopping_cart_id", null: false
     t.integer "product_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "quantity"
     t.index ["product_id"], name: "index_cart_items_on_product_id"
     t.index ["shopping_cart_id"], name: "index_cart_items_on_shopping_cart_id"
   end
@@ -46,6 +47,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_10_232156) do
     t.decimal "HST"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.decimal "qst", precision: 10, scale: 2
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
@@ -56,6 +58,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_10_232156) do
     t.integer "category_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "on_sale"
     t.index ["category_id"], name: "index_products_on_category_id"
   end
 
@@ -66,6 +69,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_10_232156) do
     t.decimal "hst"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.decimal "qst", precision: 10, scale: 2
   end
 
   create_table "reviews", force: :cascade do |t|
@@ -96,6 +100,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_10_232156) do
     t.integer "province_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "admin", default: false
     t.index ["province_id"], name: "index_users_on_province_id"
   end
 
