@@ -17,6 +17,18 @@ class CartsController < ApplicationController
     redirect_to cart_path, notice: 'Product removed from cart.'
   end
 
+  def update
+    product_id = params[:product_id]
+    quantity = params[:quantity][product_id].to_i
+
+    cart_item = @cart.cart_items.find_by(product_id: product_id)
+    if cart_item
+      cart_item.update(quantity: quantity)
+    end
+
+    redirect_to cart_path, notice: 'Cart updated successfully.'
+  end
+
   private
 
   def set_cart

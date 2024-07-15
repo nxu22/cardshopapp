@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   resource :cart, only: [:show] do
     post 'add_item', to: 'carts#add_item', as: 'add_to'
     delete 'remove_item', to: 'carts#remove_item', as: 'remove_from'
+    patch 'update', to: 'carts#update', as: 'update'
   end
 
   # Search products

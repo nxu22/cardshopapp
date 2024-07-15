@@ -4,7 +4,12 @@
   <ul>
     <% @cart_items.each do |item| %>
       <li>
-        <%= item.product.name %> - <%= item.quantity %> - <%= number_to_currency(item.product.price) %>
+        <%= item.product.name %> - 
+        <%= form_with url: update_cart_path, method: :patch, local: true do %>
+          <%= number_field_tag "quantity[#{item.product.id}]", item.quantity, min: 1 %>
+          <%= hidden_field_tag :product_id, item.product.id %>
+          <%= submit_tag 'Update Quantity' %>
+        <% end %>
         <%= button_to 'Remove', remove_from_cart_path(product_id: item.product.id), method: :delete %>
       </li>
     <% end %>
