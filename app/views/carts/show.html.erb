@@ -15,6 +15,8 @@
     <% end %>
   </ul>
   <p>Total: <%= number_to_currency(@cart_items.sum { |item| item.product.price * item.quantity }) %></p>
+  <%= link_to 'Proceed to Checkout', checkout_path, class: 'btn btn-primary' %>
+
 <% else %>
   <p>Your cart is empty.</p>
 <% end %>

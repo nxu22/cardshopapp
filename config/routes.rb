@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
-  get 'carts/show'
-  get 'carts/add_item'
-  get 'carts/remove_item'
+  get 'orders/new'
+  get 'orders/create'
+  get 'orders/show'
+  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+
   root 'products#index'
 
   # User routes for signup and account creation
@@ -17,10 +19,11 @@ Rails.application.routes.draw do
   resources :products, only: [:index, :show]
   resources :categories, only: [:index, :show]
 
-  resource :cart, only: [:show] do
+  # Cart routes with nested routes for adding and removing items
+  resource :cart, only: [:show, :update] do
     post 'add_item', to: 'carts#add_item', as: 'add_to'
     delete 'remove_item', to: 'carts#remove_item', as: 'remove_from'
-    patch 'update', to: 'carts#update', as: 'update'
+    patch 'update', to: 'carts#update', as: 'update' # Adding this line
   end
 
   # Search products
@@ -28,4 +31,10 @@ Rails.application.routes.draw do
 
   # Filter products by category
   get 'products/category/:category', to: 'products#index', as: 'category_products'
+
+  # Checkout routes
+  get 'checkout', to: 'orders#new'
+  post 'checkout', to: 'orders#create'
+
+  resources :orders, only: [:show]
 end

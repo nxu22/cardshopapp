@@ -1,0 +1,15 @@
+<h1>Checkout</h1>
+
+<%= form_with(model: @order, url: checkout_path, local: true) do |form| %>
+  <div class="form-group">
+    <%= form.label :address, "Shipping Address" %>
+    <%= form.text_field :address, value: current_user.address, class: 'form-control', readonly: true %>
+  </div>
+  
+  <div class="form-group">
+    <%= form.label :payment_method %>
+    <%= form.select :payment_method, ['Credit Card', 'PayPal'], class: 'form-control' %>
+  </div>
+  
+  <%= form.submit 'Place Order', class: 'btn btn-primary' %>
+<% end %>

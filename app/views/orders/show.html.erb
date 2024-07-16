@@ -1,0 +1,20 @@
+<h1>Order Confirmation</h1>
+
+<p>Thank you for your order!</p>
+
+<p>Order Number: <%= @order.id %></p>
+<p>Address: <%= @order.user.address %></p>
+<p>Total Price: <%= number_to_currency(@order.total_price) %></p>
+<p>PST: <%= number_to_currency(@order.pst) %></p>
+<p>GST: <%= number_to_currency(@order.gst) %></p>
+<p>HST: <%= number_to_currency(@order.hst) %></p>
+<p>QST: <%= number_to_currency(@order.qst) %></p>
+
+<h2>Order Items</h2>
+<ul>
+  <% @order.order_items.each do |item| %>
+    <li><%= item.product.name %> - Quantity: <%= item.quantity %> - Price: <%= number_to_currency(item.price) %></li>
+  <% end %>
+</ul>
+
+<%= link_to 'Continue Shopping', products_path, class: 'btn btn-primary' %>
