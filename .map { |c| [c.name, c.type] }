@@ -1,0 +1,9 @@
+=> 
+[[[31m[1m"[0m[31mid[0m[31m[1m"[0m, [33m:[0m[33minteger[0m],
+ [[31m[1m"[0m[31mname[0m[31m[1m"[0m, [33m:[0m[33mstring[0m],
+ [[31m[1m"[0m[31mgst[0m[31m[1m"[0m, [33m:[0m[33mdecimal[0m],
+ [[31m[1m"[0m[31mpst[0m[31m[1m"[0m, [33m:[0m[33mdecimal[0m],
+ [[31m[1m"[0m[31mhst[0m[31m[1m"[0m, [33m:[0m[33mdecimal[0m],
+ [[31m[1m"[0m[31mcreated_at[0m[31m[1m"[0m, [33m:[0m[33mdatetime[0m],
+ [[31m[1m"[0m[31mupdated_at[0m[31m[1m"[0m, [33m:[0m[33mdatetime[0m],
+ [[31m[1m"[0m[31mqst[0m[31m[1m"[0m, [33m:[0m[33mdecimal[0m]]

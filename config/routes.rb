@@ -18,6 +18,8 @@ Rails.application.routes.draw do
   # Resource routes for products and categories
   resources :products, only: [:index, :show]
   resources :categories, only: [:index, :show]
+  resources :charges, only: [:create]
+  resources :orders, only: [:show]
 
   # Cart routes with nested routes for adding and removing items
   resource :cart, only: [:show, :update] do
@@ -36,5 +38,5 @@ Rails.application.routes.draw do
   get 'checkout', to: 'orders#new'
   post 'checkout', to: 'orders#create'
 
-  resources :orders, only: [:show]
+  
 end

@@ -1,6 +1,19 @@
-<!-- app/views/products/show.html.erb -->
-<h1><%= @product.name %></h1>
-<%= image_tag @product.image if @product.image.present? %><br>
-<p>Price: <%= number_to_currency(@product.price) %></p>
-<p>Category: <%= link_to @product.category.name, category_path(@product.category) %></p>
-<p><%= link_to 'Back to Products', products_path %></p>
+<div class="container">
+  <div class="columns is-centered">
+    <div class="column is-half">
+      <div class="box">
+        <h1 class="title"><%= @product.name %></h1>
+        <div class="content">
+          <% if @product.image.present? %>
+            <figure class="image is-4by3">
+              <%= image_tag @product.image %>
+            </figure>
+          <% end %>
+          <p><strong>Price:</strong> <%= number_to_currency(@product.price) %></p>
+          <p><strong>Category:</strong> <%= link_to @product.category.name, category_path(@product.category) %></p>
+          <p><%= link_to 'Back to Products', products_path, class: 'button is-link' %></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

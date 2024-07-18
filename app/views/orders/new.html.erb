@@ -1,42 +1,84 @@
-<h1>Checkout</h1>
+<div class="container">
+  <div class="columns is-centered">
+    <div class="column is-half">
 
-<%= form_with(model: @order, url: checkout_path, local: true) do |form| %>
-  <h2>User Information</h2>
-  <p>Name: <%= current_user.username %></p>
-  <p>Email: <%= current_user.email %> <br> <small>We will send order and tracking information to this email.</small></p>
-  <p>Shipping Address: <%= current_user.address %></p>
-  <p>Province: <%= current_user.province.name %></p>
+      <h1 class="title">Checkout</h1>
 
-  <h2>Order Details</h2>
-  <ul>
-    <% @cart.cart_items.each do |item| %>
-      <li>
-        <%= item.product.name %> - Quantity: <%= item.quantity %> - Price: <%= number_to_currency(item.product.price) %>
-      </li>
-    <% end %>
-  </ul>
+      <%= form_with(model: @order, url: checkout_path, local: true, id: 'payment-form') do |form| %>
+        <div class="box">
+          <h2 class="subtitle">User Information</h2>
+          <div class="content">
+            <p><strong>Name:</strong> <%= @user.username %></p>
+            <p><strong>Email:</strong> <%= @user.email %> <br> 
+               <small>We will send order and tracking information to this email.</small>
+            </p>
+            <p><strong>Shipping Address:</strong> <%= @user.address %></p>
+            <p><strong>Province:</strong> <%= @user.province.name %></p>
+          </div>
+        </div>
 
-  <h2>Tax Breakdown</h2>
-  <p>PST: <%= number_to_currency(@pst) %></p>
-  <p>GST: <%= number_to_currency(@gst) %></p>
-  <p>HST: <%= number_to_currency(@hst) %></p>
-  <% if @qst.present? %>
-    <p>QST: <%= number_to_currency(@qst) %></p>
-  <% end %>
-  
-  <p>Total Tax: <%= number_to_currency(@total_tax) %></p>
-  <p>Total Price: <%= number_to_currency(@total_price) %></p>
+        <div class="box">
+          <h2 class="subtitle">Order Details</h2>
+          <ul>
+            <% @cart.cart_items.each do |item| %>
+              <li>
+                <%= item.product.name %> - Quantity: <%= item.quantity %> - Price: <%= number_to_currency(item.product.price) %>
+              </li>
+            <% end %>
+          </ul>
+        </div>
 
-  <h2>Payment Information</h2>
-  <div class="form-group">
-    <%= form.label :payment_method, "Payment Method" %>
-    <%= form.select :payment_method, ['Credit Card', 'PayPal'], class: 'form-control' %>
+        <div class="box">
+          <h2 class="subtitle">Tax Breakdown</h2>
+          <div class="content">
+            <p><strong>PST:</strong> <%= number_to_currency(@pst) %></p>
+            <p><strong>GST:</strong> <%= number_to_currency(@gst) %></p>
+            <p><strong>HST:</strong> <%= number_to_currency(@hst) %></p>
+            <% if @qst.present? %>
+              <p><strong>QST:</strong> <%= number_to_currency(@qst) %></p>
+            <% end %>
+            <p><strong>Total Tax:</strong> <%= number_to_currency(@total_tax) %></p>
+            <p><strong>Total Price:</strong> <%= number_to_currency(@total_price) %></p>
+          </div>
+        </div>
+
+        <div class="box">
+          <h2 class="subtitle">Payment Information</h2>
+          <div id="card-element" class="control"></div>
+          <div id="card-errors" role="alert" class="help is-danger"></div>
+          <div class="control">
+            <%= form.submit 'Place Order', class: 'button is-primary' %>
+          </div>
+        </div>
+      <% end %>
+
+    </div>
   </div>
-  
-  <div class="form-group">
-    <%= form.label :payment_details, "Payment Details" %>
-    <%= form.text_field :payment_details, class: 'form-control' %>
-  </div>
+</div>
 
-  <%= form.submit 'Place Order', class: 'btn btn-primary' %>
-<% end %>
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+  var stripe = Stripe('<%= ENV["STRIPE_PUBLISHABLE_KEY"] %>');
+  var elements = stripe.elements();
+  var card = elements.create('card', {style: {base: {fontSize: '16px', color: '#32325d', '::placeholder': {color: '#aab7c4'}}}});
+  card.mount('#card-element');
+
+  var form = document.getElementById('payment-form');
+  form.addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    stripe.createToken(card).then(function(result) {
+      if (result.error) {
+        var errorElement = document.getElementById('card-errors');
+        errorElement.textContent = result.error.message;
+      } else {
+        var hiddenInput = document.createElement('input');
+        hiddenInput.setAttribute('type', 'hidden');
+        hiddenInput.setAttribute('name', 'order[stripeToken]');
+        hiddenInput.setAttribute('value', result.token.id);
+        form.appendChild(hiddenInput);
+        form.submit();
+      }
+    });
+  });
+</script>
