@@ -1,4 +1,3 @@
-<!-- app/views/layouts/application.html.erb -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,6 +10,19 @@
 </head>
 
 <body>
+  <header>
+    <nav>
+      <% if logged_in? %>
+        <p>Welcome, <%= current_user.username %>!</p>
+        <%= link_to "Logout", logout_path, method: :delete %>
+        <%= link_to "Cart", cart_path %>
+      <% else %>
+        <%= link_to "Login", login_path %>
+        <%= link_to "Sign Up", signup_path %>
+      <% end %>
+    </nav>
+  </header>
+
   <%= yield %>
 </body>
 </html>

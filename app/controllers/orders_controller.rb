@@ -1,111 +1,66 @@
 class OrdersController < ApplicationController
-  before_action :set_cart, only: [:new, :create]
-  before_action :require_user
+  before_action :set_order, only: [:save_user_info, :order_details, :save_order_details, :payment_info, :process_payment]
 
-  def new
-    @order = Order.new
-    @user = current_user
-    @pst, @gst, @hst, @qst, @total_tax = calculate_tax
-    @total_price = calculate_total_price(@total_tax)
-  end
-
-  def create
-    @order = current_user.orders.build(order_params)
-    province = current_user.province
-    @order.PST = calculate_pst(province)
-    @order.GST = calculate_gst(province)
-    @order.HST = calculate_hst(province)
-    @order.qst = calculate_qst(province) if province.name == 'Quebec'
-    @total_tax = calculate_total_tax(@order.PST, @order.GST, @order.HST, @order.qst)
-    @order.total_price = calculate_total_price(@total_tax)
-
-    if params[:order][:stripeToken]
-      begin
-        charge = Stripe::Charge.create(
-          amount: (@order.total_price * 100).to_i, # Amount in cents
-          currency: 'usd',
-          description: 'Order payment',
-          source: params[:order][:stripeToken]
-        )
-
-        @order.payment_id = charge.id
-        @order.status = 'paid' # Use status instead of payment_status
-      rescue Stripe::CardError => e
-        flash[:error] = e.message
-        render :new and return
-      end
-    end
-
-    if @order.save
-      move_cart_items_to_order(@order)
-      redirect_to @order, notice: '订单创建成功。'
+  def user_info
+    if params[:order_id]
+      @order = Order.find(params[:order_id])
     else
-      render :new
+      @order = Order.create(user: current_user)
     end
   end
 
-  def show
-    @order = Order.find(params[:id])
+  def save_user_info
+    if @order.update(user_info_params)
+      redirect_to order_details_path(order_id: @order.id)
+    else
+      puts "Order update failed: #{@order.errors.full_messages.join(', ')}"
+      flash[:alert] = @order.errors.full_messages.join(", ")
+      render :user_info
+    end
+  end
+
+  def order_details
+    @order = Order.find(params[:order_id])
+  end
+
+  def save_order_details
+    @order.require_payment_and_status = true if @order.respond_to?(:require_payment_and_status=)
+    if @order.update(order_details_params)
+      redirect_to payment_info_path(order_id: @order.id)
+    else
+      render :order_details
+    end
+  end
+
+  def payment_info
+    @order = Order.find(params[:order_id])
+  end
+
+  def process_payment
+    @order.require_payment_and_status = true if @order.respond_to?(:require_payment_and_status=)
+    if @order.update(payment_params)
+      @order.update(status: 'paid')
+      redirect_to order_path(@order)
+    else
+      render :payment_info
+    end
   end
 
   private
 
-  def order_params
-    params.require(:order).permit(:payment_method, :payment_details)
+  def set_order
+    @order = Order.find(params[:order_id])
   end
 
-  def set_cart
-    @cart = current_cart
+  def user_info_params
+    params.require(:order).permit(:first_name, :last_name, :email, :address, :province_id)
   end
 
-  def calculate_tax
-    province = current_user.province
-    total_price = @cart.cart_items.sum { |item| item.product.price * item.quantity }
-    pst = total_price * province.pst / 100
-    gst = total_price * province.gst / 100
-    hst = total_price * province.hst / 100
-    qst = province.name == 'Quebec' ? total_price * province.qst / 100 : 0
-    total_tax = pst + gst + hst + qst
-    return pst, gst, hst, qst, total_tax
+  def order_details_params
+    params.require(:order).permit(:total_price, :PST, :GST, :HST, :qst)
   end
 
-  def calculate_total_price(total_tax)
-    total_price = @cart.cart_items.sum { |item| item.product.price * item.quantity }
-    total_price + total_tax
-  end
-
-  def calculate_pst(province)
-    total_price = @cart.cart_items.sum { |item| item.product.price * item.quantity }
-    total_price * province.pst / 100
-  end
-
-  def calculate_gst(province)
-    total_price = @cart.cart_items.sum { |item| item.product.price * item.quantity }
-    total_price * province.gst / 100
-  end
-
-  def calculate_hst(province)
-    total_price = @cart.cart_items.sum { |item| item.product.price * item.quantity }
-    total_price * province.hst / 100
-  end
-
-  def calculate_qst(province)
-    total_price = @cart.cart_items.sum { |item| item.product.price * item.quantity }
-    province.name == 'Quebec' ? total_price * province.qst / 100 : 0
-  end
-
-  def calculate_total_tax(pst, gst, hst, qst)
-    pst ||= 0
-    gst ||= 0
-    hst ||= 0
-    qst ||= 0
-    pst + gst + hst + qst
-  end
-
-  def move_cart_items_to_order(order)
-    @cart.cart_items.each do |item|
-      order.order_items.create(product: item.product, quantity: item.quantity, price: item.product.price)
-      item.destroy
-    end
+  def payment_params
+    params.require(:order).permit(:payment_id)
   end
 end

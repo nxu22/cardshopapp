@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="columns is-centered">
+    <div class="column is-half">
+      <h1 class="title">Checkout - Order Details</h1>
+
+      <div class="box">
+        <h2 class="subtitle">Order Details</h2>
+        <ul>
+          <% @cart.cart_items.each do |item| %>
+            <li>
+              <%= item.product.name %> - Quantity: <%= item.quantity %> - Price: <%= number_to_currency(item.product.price) %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+
+      <div class="box">
+        <h2 class="subtitle">Tax Breakdown</h2>
+        <div class="content">
+          <p><strong>PST:</strong> <%= number_to_currency(@order.PST || 0) %></p>
+          <p><strong>GST:</strong> <%= number_to_currency(@order.GST || 0) %></p>
+          <p><strong>HST:</strong> <%= number_to_currency(@order.HST || 0) %></p>
+          <p><strong>QST:</strong> <%= number_to_currency(@order.qst || 0) %></p>
+          <p><strong>Total Tax:</strong> <%= number_to_currency((@order.PST || 0) + (@order.GST || 0) + (@order.HST || 0) + (@order.qst || 0)) %></p>
+          <p><strong>Total Price:</strong> <%= number_to_currency(@order.total_price || 0) %></p>
+        </div>
+      </div>
+
+      <%= form_with(model: @order, url: order_details_path(order_id: @order.id), local: true, method: :patch) do |form| %>
+        <div class="control">
+          <%= form.submit 'Next', class: 'button is-primary' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

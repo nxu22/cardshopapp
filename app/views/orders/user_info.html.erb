@@ -1,0 +1,46 @@
+<div class="container">
+  <div class="columns is-centered">
+    <div class="column is-half">
+      <h1 class="title">Checkout - User Information</h1>
+
+      <%= form_with(model: @order, url: user_info_path(order_id: @order.id), local: true, method: :patch, id: 'user-info-form') do |form| %>
+        <div class="box">
+          <h2 class="subtitle">User Information</h2>
+          <div class="field">
+            <label class="label">First Name</label>
+            <div class="control">
+              <%= form.text_field :first_name, class: 'input' %>
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">Last Name</label>
+            <div class="control">
+              <%= form.text_field :last_name, class: 'input' %>
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">Email</label>
+            <div class="control">
+              <%= form.email_field :email, class: 'input' %>
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">Shipping Address</label>
+            <div class="control">
+              <%= form.text_field :address, class: 'input' %>
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">Province</label>
+            <div class="control">
+              <%= form.select :province_id, Province.all.collect { |p| [p.name, p.id] }, { include_blank: true }, class: 'input', id: 'province-select' %>
+            </div>
+          </div>
+          <div class="control">
+            <%= form.submit 'Next', class: 'button is-primary', id: 'save-user-info' %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

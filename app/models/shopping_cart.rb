@@ -21,4 +21,8 @@ class ShoppingCart < ApplicationRecord
       current_item.destroy if current_item.quantity <= 0
     end
   end
+
+  def total_price
+    cart_items.sum { |item| item.product.price * item.quantity }
+  end
 end

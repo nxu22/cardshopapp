@@ -1,42 +1,36 @@
 Rails.application.routes.draw do
-  get 'orders/new'
-  get 'orders/create'
-  get 'orders/show'
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
   root 'products#index'
 
-  # User routes for signup and account creation
   get 'signup', to: 'users#new'
   post 'signup', to: 'users#create'
 
-  # Session routes for login and logout
   get 'login', to: 'sessions#new'
   post 'login', to: 'sessions#create'
   delete 'logout', to: 'sessions#destroy'
 
-  # Resource routes for products and categories
   resources :products, only: [:index, :show]
   resources :categories, only: [:index, :show]
   resources :charges, only: [:create]
   resources :orders, only: [:show]
 
-  # Cart routes with nested routes for adding and removing items
   resource :cart, only: [:show, :update] do
     post 'add_item', to: 'carts#add_item', as: 'add_to'
     delete 'remove_item', to: 'carts#remove_item', as: 'remove_from'
-    patch 'update', to: 'carts#update', as: 'update' # Adding this line
+    patch 'update', to: 'carts#update', as: 'update'
+    post 'checkout', to: 'carts#checkout', as: 'checkout'
   end
 
-  # Search products
   get 'search_products', to: 'products#search'
 
-  # Filter products by category
   get 'products/category/:category', to: 'products#index', as: 'category_products'
 
-  # Checkout routes
-  get 'checkout', to: 'orders#new'
-  post 'checkout', to: 'orders#create'
+  get 'checkout/user_info', to: 'orders#user_info', as: 'user_info'
+  post 'checkout/user_info', to: 'orders#save_user_info'
+  patch 'checkout/user_info', to: 'orders#save_user_info'
 
-  
+  get 'checkout/order_details', to: 'orders#order_details', as: 'order_details'
+  post 'checkout/order_details', to: 'orders#save_order_details'
+
+  get 'checkout/payment_info', to: 'orders#payment_info', as: 'payment_info'
+  post 'checkout/payment_info', to: 'orders#process_payment'
 end

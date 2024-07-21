@@ -1,63 +1,115 @@
 <div class="container">
   <div class="columns is-centered">
     <div class="column is-half">
-
       <h1 class="title">Checkout</h1>
 
-      <%= form_with(model: @order, url: checkout_path, local: true, id: 'payment-form') do |form| %>
+      <%= form_with(model: @order, url: save_user_info_path, local: true, id: 'user-info-form') do |form| %>
         <div class="box">
           <h2 class="subtitle">User Information</h2>
-          <div class="content">
-            <p><strong>Name:</strong> <%= @user.username %></p>
-            <p><strong>Email:</strong> <%= @user.email %> <br> 
-               <small>We will send order and tracking information to this email.</small>
-            </p>
-            <p><strong>Shipping Address:</strong> <%= @user.address %></p>
-            <p><strong>Province:</strong> <%= @user.province.name %></p>
+          <div class="field">
+            <label class="label">First Name</label>
+            <div class="control">
+              <%= form.text_field :first_name, class: 'input' %>
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">Last Name</label>
+            <div class="control">
+              <%= form.text_field :last_name, class: 'input' %>
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">Email</label>
+            <div class="control">
+              <%= form.email_field :email, class: 'input' %>
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">Shipping Address</label>
+            <div class="control">
+              <%= form.text_field :address, class: 'input' %>
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">Province</label>
+            <div class="control">
+              <%= form.select :province_id, Province.all.collect { |p| [p.name, p.id] }, { include_blank: true }, class: 'input', id: 'province-select' %>
+            </div>
+          </div>
+          <div class="control">
+            <%= form.submit 'Save', class: 'button is-primary', id: 'save-user-info' %>
           </div>
         </div>
+      <% end %>
 
-        <div class="box">
-          <h2 class="subtitle">Order Details</h2>
-          <ul>
-            <% @cart.cart_items.each do |item| %>
-              <li>
-                <%= item.product.name %> - Quantity: <%= item.quantity %> - Price: <%= number_to_currency(item.product.price) %>
-              </li>
-            <% end %>
-          </ul>
+      <div class="box" id="order-details">
+        <h2 class="subtitle">Order Details</h2>
+        <ul>
+          <% @cart.cart_items.each do |item| %>
+            <li>
+              <%= item.product.name %> - Quantity: <%= item.quantity %> - Price: <%= number_to_currency(item.product.price) %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+
+      <div class="box" id="tax-breakdown">
+        <h2 class="subtitle">Tax Breakdown</h2>
+        <div class="content">
+          <p><strong>PST:</strong> <span id="pst"><%= number_to_currency(0) %></span></p>
+          <p><strong>GST:</strong> <span id="gst"><%= number_to_currency(0) %></span></p>
+          <p><strong>HST:</strong> <span id="hst"><%= number_to_currency(0) %></span></p>
+          <p><strong>QST:</strong> <span id="qst"><%= number_to_currency(0) %></span></p>
+          <p><strong>Total Tax:</strong> <span id="total-tax"><%= number_to_currency(0) %></span></p>
+          <p><strong>Total Price:</strong> <span id="total-price"><%= number_to_currency(@cart.total_price) %></span></p>
         </div>
+      </div>
 
-        <div class="box">
-          <h2 class="subtitle">Tax Breakdown</h2>
-          <div class="content">
-            <p><strong>PST:</strong> <%= number_to_currency(@pst) %></p>
-            <p><strong>GST:</strong> <%= number_to_currency(@gst) %></p>
-            <p><strong>HST:</strong> <%= number_to_currency(@hst) %></p>
-            <% if @qst.present? %>
-              <p><strong>QST:</strong> <%= number_to_currency(@qst) %></p>
-            <% end %>
-            <p><strong>Total Tax:</strong> <%= number_to_currency(@total_tax) %></p>
-            <p><strong>Total Price:</strong> <%= number_to_currency(@total_price) %></p>
-          </div>
-        </div>
-
-        <div class="box">
-          <h2 class="subtitle">Payment Information</h2>
+      <div class="box">
+        <h2 class="subtitle">Payment Information</h2>
+        <%= form_with(model: @order, url: checkout_path, local: true, id: 'payment-form') do |form| %>
           <div id="card-element" class="control"></div>
           <div id="card-errors" role="alert" class="help is-danger"></div>
           <div class="control">
             <%= form.submit 'Place Order', class: 'button is-primary' %>
           </div>
-        </div>
-      <% end %>
-
+        <% end %>
+      </div>
     </div>
   </div>
 </div>
 
 <script src="https://js.stripe.com/v3/"></script>
 <script>
+  document.getElementById('user-info-form').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const form = event.target;
+    const formData = new FormData(form);
+
+    fetch(form.action, {
+      method: 'POST',
+      body: formData,
+      headers: {
+        'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+      }
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        document.getElementById('pst').textContent = (data.tax_rate.pst).toFixed(2);
+        document.getElementById('gst').textContent = (data.tax_rate.gst).toFixed(2);
+        document.getElementById('hst').textContent = (data.tax_rate.hst).toFixed(2);
+        document.getElementById('qst').textContent = (data.tax_rate.qst).toFixed(2);
+        document.getElementById('total-tax').textContent = (data.tax_rate.pst + data.tax_rate.gst + data.tax_rate.hst + data.tax_rate.qst).toFixed(2);
+        document.getElementById('total-price').textContent = (data.total_price).toFixed(2);
+        document.getElementById('order-details').style.display = 'block';
+        document.getElementById('tax-breakdown').style.display = 'block';
+      } else {
+        alert('Failed to save user information: ' + data.error);
+      }
+    });
+  });
+
   var stripe = Stripe('<%= ENV["STRIPE_PUBLISHABLE_KEY"] %>');
   var elements = stripe.elements();
   var card = elements.create('card', {style: {base: {fontSize: '16px', color: '#32325d', '::placeholder': {color: '#aab7c4'}}}});
