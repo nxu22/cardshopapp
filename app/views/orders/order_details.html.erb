@@ -26,7 +26,12 @@
         </div>
       </div>
 
-      <%= form_with(model: @order, url: order_details_path(order_id: @order.id), local: true, method: :patch) do |form| %>
+      <%= form_with(model: @order, url: order_details_path(order_id: @order.id), local: true) do |form| %>
+        <%= form.hidden_field :total_price, value: @order.total_price %>
+        <%= form.hidden_field :PST, value: @order.PST %>
+        <%= form.hidden_field :GST, value: @order.GST %>
+        <%= form.hidden_field :HST, value: @order.HST %>
+        <%= form.hidden_field :qst, value: @order.qst %>
         <div class="control">
           <%= form.submit 'Next', class: 'button is-primary' %>
         </div>

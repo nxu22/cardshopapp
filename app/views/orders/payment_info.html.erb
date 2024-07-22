@@ -4,7 +4,7 @@
     <div class="column is-half">
       <h1 class="title">Checkout - Payment Information</h1>
 
-      <%= form_with(model: @order, url: payment_info_path(order_id: @order.id), local: true, id: 'payment-form') do |form| %>
+      <%= form_with(model: @order, url: payment_info_path(order_id: @order.id), method: :patch, local: true, id: 'payment-form') do |form| %>
         <div class="box">
           <h2 class="subtitle">Payment Information</h2>
           <div id="card-element" class="control"></div>

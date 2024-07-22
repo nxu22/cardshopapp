@@ -1,7 +1,12 @@
 class OrdersController < ApplicationController
-  before_action :set_order, only: [:save_user_info, :order_details, :save_order_details, :payment_info, :process_payment]
+  before_action :set_order, only: [:show, :save_user_info, :order_details, :save_order_details, :payment_info, :process_payment]
+  before_action :set_cart, only: [:order_details, :payment_info, :save_user_info]
 
-  def user_info
+  def show
+    # `@order` 已经通过 `before_action` 设置
+  end
+
+  def user_info 
     if params[:order_id]
       @order = Order.find(params[:order_id])
     else
@@ -10,7 +15,9 @@ class OrdersController < ApplicationController
   end
 
   def save_user_info
+    set_cart  # 确保 @cart 在调用 calculate_taxes_and_total 之前被设置
     if @order.update(user_info_params)
+      calculate_taxes_and_total
       redirect_to order_details_path(order_id: @order.id)
     else
       puts "Order update failed: #{@order.errors.full_messages.join(', ')}"
@@ -20,11 +27,10 @@ class OrdersController < ApplicationController
   end
 
   def order_details
-    @order = Order.find(params[:order_id])
+    # `@cart` 现在由 `set_cart` before_action 设置
   end
 
   def save_order_details
-    @order.require_payment_and_status = true if @order.respond_to?(:require_payment_and_status=)
     if @order.update(order_details_params)
       redirect_to payment_info_path(order_id: @order.id)
     else
@@ -33,11 +39,10 @@ class OrdersController < ApplicationController
   end
 
   def payment_info
-    @order = Order.find(params[:order_id])
+    # `@cart` 现在由 `set_cart` before_action 设置
   end
 
   def process_payment
-    @order.require_payment_and_status = true if @order.respond_to?(:require_payment_and_status=)
     if @order.update(payment_params)
       @order.update(status: 'paid')
       redirect_to order_path(@order)
@@ -49,7 +54,11 @@ class OrdersController < ApplicationController
   private
 
   def set_order
-    @order = Order.find(params[:order_id])
+    @order = Order.find(params[:id] || params[:order_id])
+  end
+
+  def set_cart
+    @cart = current_cart
   end
 
   def user_info_params
@@ -62,5 +71,24 @@ class OrdersController < ApplicationController
 
   def payment_params
     params.require(:order).permit(:payment_id)
+  end
+
+  def calculate_taxes_and_total
+    province = @order.province
+  
+    pst_rate = province.pst_rate || 0
+    gst_rate = province.gst_rate || 0
+    hst_rate = province.hst_rate || 0
+    qst_rate = province.qst_rate || 0
+  
+    pst = @cart.cart_items.sum { |item| item.product.price * pst_rate }
+    gst = @cart.cart_items.sum { |item| item.product.price * gst_rate }
+    hst = @cart.cart_items.sum { |item| item.product.price * hst_rate }
+    qst = @cart.cart_items.sum { |item| item.product.price * qst_rate }
+    total_price = @cart.cart_items.sum { |item| item.product.price * item.quantity } + pst + gst + hst + qst
+  
+    puts "PST: #{pst}, GST: #{gst}, HST: #{hst}, QST: #{qst}, Total Price: #{total_price}"  # 调试输出
+  
+    @order.update(PST: pst, GST: gst, HST: hst, qst: qst, total_price: total_price)
   end
 end

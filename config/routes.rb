@@ -25,12 +25,11 @@ Rails.application.routes.draw do
   get 'products/category/:category', to: 'products#index', as: 'category_products'
 
   get 'checkout/user_info', to: 'orders#user_info', as: 'user_info'
-  post 'checkout/user_info', to: 'orders#save_user_info'
   patch 'checkout/user_info', to: 'orders#save_user_info'
 
   get 'checkout/order_details', to: 'orders#order_details', as: 'order_details'
-  post 'checkout/order_details', to: 'orders#save_order_details'
+  patch 'checkout/order_details', to: 'orders#save_order_details'
 
   get 'checkout/payment_info', to: 'orders#payment_info', as: 'payment_info'
-  post 'checkout/payment_info', to: 'orders#process_payment'
+  patch 'checkout/payment_info', to: 'orders#process_payment'
 end
