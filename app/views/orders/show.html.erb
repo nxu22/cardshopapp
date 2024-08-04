@@ -1,5 +1,12 @@
-<h1>Order Confirmation</h1>
+<!-- app/views/orders/confirmation.html.erb -->
 
-<p>Thank you for your order!</p>
+<div class="container">
+  <h1>Order Confirmation</h1>
+  <p>Thank you for your order!</p>
+  <p>Order Number: <%= @order.id %></p>
+  <p>Total Amount: <%= number_to_currency(@order.total_price) %></p>
+  <p>Status: <%= @order.status.capitalize %></p>
 
-<p>Order Number: <%= @order.id %></p>
+  <!-- Add any other information you want to display to the user here -->
+  <a href="<%= root_path %>" class="button">Continue Shopping</a>
+</div>
