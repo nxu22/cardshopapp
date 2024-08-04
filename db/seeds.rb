@@ -1,3 +1,5 @@
+# db/seeds.rb
+
 require 'json'
 
 # Path to your JSON file
@@ -8,9 +10,12 @@ file = File.read(json_file_path)
 data = JSON.parse(file)
 
 # Clear existing data
+OrderItem.delete_all
+Order.delete_all
 Product.delete_all
 Category.delete_all
 Province.delete_all
+StaticPage.delete_all
 
 # Seed provinces data
 Province.create!([
@@ -46,4 +51,13 @@ data.each do |product_data|
   product.save!
 end
 
-puts "Database seeded successfully with product and province data!"
+# Seed static pages data
+StaticPage.find_or_create_by(title: 'About') do |page|
+  page.content = 'Initial content for the about page.'
+end
+
+StaticPage.find_or_create_by(title: 'Contact') do |page|
+  page.content = 'Initial content for the contact page.'
+end
+
+puts "Database seeded successfully with product, province, and static page data!"
