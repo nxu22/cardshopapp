@@ -14,7 +14,16 @@ Province.delete_all
 
 # Seed provinces data
 Province.create!([
-  # your provinces data here
+  { name: 'Alberta', gst: 5.0, pst: 0.0, hst: 0.0, qst: 0.0 },
+  { name: 'British Columbia', gst: 5.0, pst: 7.0, hst: 0.0, qst: 0.0 },
+  { name: 'Manitoba', gst: 5.0, pst: 7.0, hst: 0.0, qst: 0.0 },
+  { name: 'New Brunswick', gst: 0.0, pst: 0.0, hst: 15.0, qst: 0.0 },
+  { name: 'Newfoundland and Labrador', gst: 0.0, pst: 0.0, hst: 15.0, qst: 0.0 },
+  { name: 'Nova Scotia', gst: 0.0, pst: 0.0, hst: 15.0, qst: 0.0 },
+  { name: 'Ontario', gst: 0.0, pst: 0.0, hst: 13.0, qst: 0.0 },
+  { name: 'Prince Edward Island', gst: 0.0, pst: 0.0, hst: 15.0, qst: 0.0 },
+  { name: 'Quebec', gst: 5.0, pst: 0.0, hst: 0.0, qst: 9.975 },
+  { name: 'Saskatchewan', gst: 5.0, pst: 6.0, hst: 0.0, qst: 0.0 }
 ])
 
 # Seed products and categories

@@ -13,34 +13,49 @@
             <%= form.submit 'Place Order', class: 'button is-primary' %>
           </div>
         </div>
-      <% end %>
+      <% end %>      
     </div>
   </div>
 </div>
 
 <script src="https://js.stripe.com/v3/"></script>
 <script>
-  var stripe = Stripe('<%= ENV["STRIPE_PUBLISHABLE_KEY"] %>');
-  var elements = stripe.elements();
-  var card = elements.create('card', {style: {base: {fontSize: '16px', color: '#32325d', '::placeholder': {color: '#aab7c4'}}}});
-  card.mount('#card-element');
-
-  var form = document.getElementById('payment-form');
-  form.addEventListener('submit', function(event) {
-    event.preventDefault();
-
-    stripe.createToken(card).then(function(result) {
-      if (result.error) {
-        var errorElement = document.getElementById('card-errors');
-        errorElement.textContent = result.error.message;
-      } else {
-        var hiddenInput = document.createElement('input');
-        hiddenInput.setAttribute('type', 'hidden');
-        hiddenInput.setAttribute('name', 'order[payment_id]');
-        hiddenInput.setAttribute('value', result.token.id);
-        form.appendChild(hiddenInput);
-        form.submit();
+  document.addEventListener('DOMContentLoaded', function() {
+    var stripe = Stripe('<%= Rails.configuration.stripe[:publishable_key] %>');
+    var elements = stripe.elements();
+    var card = elements.create('card', {
+      style: {
+        base: {
+          fontSize: '16px',
+          color: '#32325d',
+          '::placeholder': {
+            color: '#aab7c4'
+          }
+        }
       }
+    });
+    card.mount('#card-element');
+
+    var form = document.getElementById('payment-form');
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      stripe.createToken(card).then(function(result) {
+        if (result.error) {
+          var errorElement = document.getElementById('card-errors');
+          errorElement.textContent = result.error.message;
+        } else {
+          console.log("Stripe Token created: ", result.token.id); // Add logging
+          var hiddenInput = document.createElement('input');
+          hiddenInput.setAttribute('type', 'hidden');
+          hiddenInput.setAttribute('name', 'order[stripe_token]'); // Ensure the name matches controller expectation
+          hiddenInput.setAttribute('value', result.token.id);
+          form.appendChild(hiddenInput);
+          form.submit();
+        }
+      });
     });
   });
 </script>
+
+

@@ -7,12 +7,16 @@
       <%= submit_tag 'Logout', class: 'button is-link' %>
     <% end %>
     <%= link_to 'Cart', cart_path, class: 'button is-link' %>
+    <% if @user.admin? %>
+      <%= link_to 'Admin Dashboard', admin_dashboard_path, class: 'button is-warning' %> <!-- Adjust the path as needed -->
+    <% end %>
   <% else %>
     <%= link_to 'Login', login_path, class: 'button is-link' %>
     <%= link_to 'Sign Up', signup_path, class: 'button is-link' %>
     <%= button_to 'Cart', signup_path, method: :get, class: 'button is-link', data: { confirm: 'Please sign up to view your cart.' } %>
   <% end %>
 </div>
+
 
 <%= form_with url: products_path, method: :get, local: true, class: 'search-form' do %>
   <div class="field has-addons">
