@@ -1,8 +1,8 @@
 <h1 class="title is-1"><%= params[:category] ? params[:category] : 'All Products' %></h1>
 
 <div class="top-bar">
-  <% if logged_in? %>
-    <p>Welcome, <%= current_user.username %>!</p>
+  <% if @user %>
+    <p>Welcome, <%= @user.username %>!</p>
     <%= form_with(url: logout_path, method: :delete, class: 'button_to') do %>
       <%= submit_tag 'Logout', class: 'button is-link' %>
     <% end %>
@@ -42,10 +42,9 @@
 
 <div class="buttons">
   <%= link_to 'All Products', products_path, class: 'button is-link' %>
-  <%= link_to 'Birthday card', category_products_path(category: 'Birthday card'), class: 'button is-link' %>
-  <%= link_to 'Christmas card', category_products_path(category: 'Christmas card'), class: 'button is-link' %>
-  <%= link_to 'Thanksgiving card', category_products_path(category: 'Thanksgiving card'), class: 'button is-link' %>
-  <%= link_to 'Valentine card', category_products_path(category: 'Valentine card'), class: 'button is-link' %>
+  <% @categories.each do |category| %>
+    <%= link_to category.name, products_path(category: category.name), class: 'button is-link' %>
+  <% end %>
 </div>
 
 <% if @products.present? %>
@@ -69,7 +68,7 @@
                   <p class="subtitle is-6"><%= number_to_currency(product.price) %></p>
                 </div>
               </div>
-              <% if logged_in? %>
+              <% if @user %>
                 <%= button_to 'Add to Cart', add_to_cart_path(product_id: product.id), method: :post, class: 'button is-link' %>
               <% else %>
                 <%= button_to 'Add to Cart', signup_path, method: :get, class: 'button is-link', data: { confirm: 'Please sign up to add items to your cart.' } %>

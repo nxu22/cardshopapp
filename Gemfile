@@ -5,6 +5,11 @@ ruby "3.3.0"
 gem 'bcrypt', '~> 3.1.7'
 gem 'stripe'
 
+gem 'devise'
+gem 'activeadmin'
+gem 'sassc'
+
+
 gem 'dotenv-rails', groups: [:development, :test]
 
 
@@ -71,3 +76,4 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+ 

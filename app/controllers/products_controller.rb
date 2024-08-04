@@ -2,7 +2,8 @@ class ProductsController < ApplicationController
   def index
     @products = Product.all
     @user = current_user
-    
+    @categories = Category.all  # 加载所有分类
+
     if params[:category]
       @category = Category.find_by(name: params[:category])
       if @category
