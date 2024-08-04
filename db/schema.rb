@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_24_155918) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_04_214458) do
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
     t.text "body"
@@ -93,23 +93,23 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_24_155918) do
   end
 
   create_table "orders", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "province_id"
+    t.integer "user_id", null: false
+    t.string "status"
+    t.decimal "total_price"
+    t.decimal "PST"
+    t.decimal "GST"
+    t.decimal "HST"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.decimal "qst", precision: 10, scale: 2
+    t.string "payment_id"
     t.string "first_name"
     t.string "last_name"
     t.string "email"
     t.string "address"
-    t.decimal "total_price", precision: 10, scale: 2
-    t.decimal "PST", precision: 5, scale: 2
-    t.decimal "GST", precision: 5, scale: 2
-    t.decimal "HST", precision: 5, scale: 2
-    t.decimal "qst", precision: 5, scale: 2
-    t.string "payment_id"
-    t.string "status"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer "province_id"
+    t.index ["user_id"], name: "index_orders_on_user_id"
   end
-  
 
   create_table "products", force: :cascade do |t|
     t.string "name"
@@ -165,6 +165,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_24_155918) do
     t.boolean "admin", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "role"
     t.index ["province_id"], name: "index_users_on_province_id"
   end
 

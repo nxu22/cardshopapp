@@ -9,6 +9,6 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: true
 
   def admin?
-    self.admin
+    role == "admin"
   end
 end

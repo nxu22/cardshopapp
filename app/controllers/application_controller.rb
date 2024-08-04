@@ -39,4 +39,12 @@ class ApplicationController < ActionController::Base
       @current_cart
     end
   end
+  
+  def after_sign_in_path_for(resource)
+    if resource.is_a?(AdminUser)
+      admin_root_path # Redirect to ActiveAdmin dashboard
+    else
+      super # Redirect to the default path for non-admin users
+    end
+  end
 end
