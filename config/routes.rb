@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
+
   root 'products#index'
 
   get 'signup', to: 'users#new'
@@ -23,7 +24,6 @@ Rails.application.routes.draw do
   end
 
   get 'search_products', to: 'products#search'
-
   get 'products/category/:category', to: 'products#index', as: 'category_products'
 
   get 'checkout/user_info', to: 'orders#user_info', as: 'user_info'
@@ -34,4 +34,11 @@ Rails.application.routes.draw do
 
   get 'checkout/payment_info', to: 'orders#payment_info', as: 'payment_info'
   patch 'checkout/payment_info', to: 'orders#process_payment'
+
+  # Define routes for About and Contact pages
+  get 'about', to: 'pages#show', defaults: { page_type: 'about' }, as: :about
+  get 'contact', to: 'pages#show', defaults: { page_type: 'contact' }, as: :contact
+
+  # Dynamic pages route
+  get 'pages/:page_type', to: 'pages#show', as: :static_page
 end
