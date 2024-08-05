@@ -35,9 +35,8 @@ Rails.application.routes.draw do
   get 'checkout/payment_info', to: 'orders#payment_info', as: 'payment_info'
   patch 'checkout/payment_info', to: 'orders#process_payment'
 
-  # Define routes for About and Contact pages
-  get 'about', to: 'pages#show', defaults: { page_type: 'about' }, as: :about
-  get 'contact', to: 'pages#show', defaults: { page_type: 'contact' }, as: :contact
+  get 'contact', to: 'pages#contact', as: 'contact'
+  get 'about', to: 'pages#about', as: 'about'
 
   # Dynamic pages route
   get 'pages/:page_type', to: 'pages#show', as: :static_page
