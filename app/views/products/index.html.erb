@@ -44,7 +44,7 @@
 <%= form_with url: products_path, method: :get, local: true, class: 'search-form' do %>
   <div class="field has-addons">
     <div class="control">
-      <input class="input" type="text" name="query" placeholder="Search for products...">
+      <input class="input" type="text" name="query" placeholder="Search for products by name or description...">
     </div>
     <div class="control">
       <button class="button is-link" type="submit">Search</button>
@@ -53,11 +53,11 @@
   <div class="field">
     <div class="control">
       <div class="select">
-        <select name="filter">
-          <option value="">All Products</option>
-          <option value="on_sale">On Sale</option>
-          <option value="new">New Products</option>
-          <option value="recently_updated">Recently Updated</option>
+        <select name="category">
+          <option value="">All Categories</option>
+          <% @categories.each do |category| %>
+            <option value="<%= category.name %>" <%= 'selected' if params[:category] == category.name %>><%= category.name %></option>
+          <% end %>
         </select>
       </div>
     </div>
