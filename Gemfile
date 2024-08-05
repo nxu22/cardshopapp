@@ -9,6 +9,7 @@ gem 'devise'
 gem 'activeadmin'
 gem 'sassc'
 
+gem 'kaminari'
 
 gem 'dotenv-rails', groups: [:development, :test]
 
