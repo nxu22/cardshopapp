@@ -19,7 +19,7 @@ class Order < ApplicationRecord
   def set_total_price
     # Calculate total price from order items, assuming each item responds to `price` and `quantity`
     total = order_items.reduce(0) do |sum, item|
-      sum + item.quantity * item.product.price
+      sum + item.quantity * (item.product.price || 0)
     end
     self.total_price = total
   end

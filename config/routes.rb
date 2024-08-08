@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   resources :products, only: [:index, :show]
   resources :categories, only: [:index, :show]
   resources :charges, only: [:create]
-  resources :orders, only: [:show, :index]  # Added the index action to view all orders
+  resources :orders, only: [:show, :index]
 
   resource :cart, only: [:show, :update] do
     post 'add_item', to: 'carts#add_item', as: 'add_to'
