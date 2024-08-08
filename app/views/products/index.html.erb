@@ -23,7 +23,7 @@
       <div class="navbar-item">
         <% if @user %>
           <p>Welcome, <%= @user.username %>!</p>
-          <%= form_with(url: logout_path, method: :delete, class: 'button_to') do %>
+          <%= form_with(url: destroy_user_session_path, method: :delete, class: 'button_to') do %>
             <%= submit_tag 'Logout', class: 'button is-link' %>
           <% end %>
           <%= link_to 'Cart', cart_path, class: 'button is-link' %>
@@ -31,9 +31,9 @@
             <%= link_to 'Admin Dashboard', admin_dashboard_path, class: 'button is-warning' %>
           <% end %>
         <% else %>
-          <%= link_to 'Login', login_path, class: 'button is-link' %>
-          <%= link_to 'Sign Up', signup_path, class: 'button is-link' %>
-          <%= button_to 'Cart', signup_path, method: :get, class: 'button is-link', data: { confirm: 'Please sign up to view your cart.' } %>
+          <%= link_to 'Login', new_user_session_path, class: "button is-primary" %>
+         <%= link_to 'Sign up', new_user_registration_path, class: "button is-light" %>
+          <%= button_to 'Cart', new_user_registration_path, method: :get, class: 'button is-link', data: { confirm: 'Please sign up to view your cart.' } %>
         <% end %>
       </div>
     </div>
@@ -100,7 +100,7 @@
               <% if @user %>
                 <%= button_to 'Add to Cart', add_to_cart_path(product_id: product.id), method: :post, class: 'button is-link' %>
               <% else %>
-                <%= button_to 'Add to Cart', signup_path, method: :get, class: 'button is-link', data: { confirm: 'Please sign up to add items to your cart.' } %>
+                <%= button_to 'Add to Cart',new_user_registration_path, method: :get, class: 'button is-link', data: { confirm: 'Please sign up to add items to your cart.' } %>
               <% end %>
             </div>
           </div>
