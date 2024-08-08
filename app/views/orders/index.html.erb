@@ -1,0 +1,32 @@
+<!-- app/views/orders/index.html.erb -->
+
+<h1>Your Orders</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Order ID</th>
+      <th>Date</th>
+      <th>Items</th>
+      <th>Total</th>
+      <th>Status</th>
+      <th>View</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @orders.each do |order| %>
+      <tr>
+        <td><%= order.id %></td>
+        <td><%= order.created_at.strftime("%B %d, %Y") %></td>
+        <td>
+          <% order.order_items.each do |item| %>
+            <%= item.product.name %> (x<%= item.quantity %>)<br>
+          <% end %>
+        </td>
+        <td>$<%= '%.2f' % order.total_price %></td>
+        <td><%= order.status %></td>
+        <td><%= link_to 'Details', order_path(order) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
