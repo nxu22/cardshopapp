@@ -1,45 +1,5 @@
 <h1 class="title is-1"><%= params[:category] ? params[:category] : 'All Products' %></h1>
 
-<!-- Navigation Bar -->
-<nav class="navbar" role="navigation" aria-label="main navigation">
-  <div class="navbar-brand">
-    <%= link_to 'Home', root_path, class: 'navbar-item' %>
-    <% if @user %>
-      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-      </a>
-    <% end %>
-  </div>
-
-  <div id="navbarBasicExample" class="navbar-menu">
-    <div class="navbar-start">
-      <%= link_to 'About', about_path, class: 'navbar-item' %>
-      <%= link_to 'Contact', contact_path, class: 'navbar-item' %>
-    </div>
-
-    <div class="navbar-end">
-      <div class="navbar-item">
-        <% if @user %>
-          <p>Welcome, <%= @user.username %>!</p>
-          <%= form_with(url: destroy_user_session_path, method: :delete, class: 'button_to') do %>
-            <%= submit_tag 'Logout', class: 'button is-link' %>
-          <% end %>
-          <%= link_to 'Cart', cart_path, class: 'button is-link' %>
-          <% if @user.admin? %>
-            <%= link_to 'Admin Dashboard', admin_dashboard_path, class: 'button is-warning' %>
-          <% end %>
-        <% else %>
-          <%= link_to 'Login', new_user_session_path, class: "button is-primary" %>
-         <%= link_to 'Sign up', new_user_registration_path, class: "button is-light" %>
-          <%= button_to 'Cart', new_user_registration_path, method: :get, class: 'button is-link', data: { confirm: 'Please sign up to view your cart.' } %>
-        <% end %>
-      </div>
-    </div>
-  </div>
-</nav>
-
 <!-- Search and Filter Form -->
 <%= form_with url: products_path, method: :get, local: true, class: 'search-form' do %>
   <div class="field has-addons">

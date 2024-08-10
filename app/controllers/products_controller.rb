@@ -1,4 +1,5 @@
 class ProductsController < ApplicationController
+  before_action only: [:index, :show]
   def index
     @user = current_user
     @categories = Category.all  # Load all categories
@@ -39,20 +40,5 @@ class ProductsController < ApplicationController
 
   def show
     @product = Product.find(params[:id])
-  end
-
-  private
-
-  def current_user
-    if session[:user_id]
-      begin
-        @current_user ||= User.find(session[:user_id])
-      rescue ActiveRecord::RecordNotFound
-        session[:user_id] = nil
-        @current_user = nil
-      end
-    else
-      @current_user = nil
-    end
   end
 end

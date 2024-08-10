@@ -1,6 +1,6 @@
 class CartsController < ApplicationController
   before_action :set_cart
-  before_action :require_user, only: [:checkout]
+  before_action :authenticate_user!, only: [:checkout]  # Use Devise's authenticate_user! method
 
   def show
     @cart_items = @cart.cart_items.includes(:product)
@@ -9,14 +9,14 @@ class CartsController < ApplicationController
   def checkout
     @order = Order.new(user: current_user)
     if @order.save(validate: false)
-      puts "Created Order ID: #{@order.id}"  # 日志输出
+      puts "Created Order ID: #{@order.id}"  # Logging output
       redirect_to user_info_path(order_id: @order.id)
     else
       puts "Order creation failed: #{@order.errors.full_messages.join(', ')}"
       redirect_to cart_path, alert: "Order creation failed."
     end
   end
-  
+
   def add_item
     product = Product.find(params[:product_id])
     @cart.add_product(product)
@@ -44,6 +44,6 @@ class CartsController < ApplicationController
   private
 
   def set_cart
-    @cart = current_cart
+    @cart = current_user.shopping_cart || ShoppingCart.create(user: current_user)
   end
 end

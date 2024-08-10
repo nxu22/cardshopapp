@@ -133,7 +133,7 @@ class OrdersController < ApplicationController
   end
 
   def set_cart
-    @cart = current_cart
+    @cart = current_user.shopping_cart || ShoppingCart.create(user: current_user)
   end
 
   def order_params
