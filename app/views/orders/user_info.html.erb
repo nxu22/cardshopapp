@@ -103,7 +103,7 @@
       var form = document.getElementById('checkout-form');
       var hiddenInput = document.createElement('input');
       hiddenInput.setAttribute('type', 'hidden');
-      hiddenInput.setAttribute('name', 'stripe_token');
+      hiddenInput.setAttribute('name', 'order[stripe_token]'); // Correctly nested name
       hiddenInput.setAttribute('value', token.id);
       form.appendChild(hiddenInput);
 

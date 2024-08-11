@@ -8,9 +8,9 @@ class OrdersController < ApplicationController
   end
 
   def save_user_info
-    # Extract stripe_token separately from params
-    stripe_token = params[:order].delete(:stripe_token) || params.delete(:stripe_token)
-
+    # Extract stripe_token from the nested order params
+    stripe_token = params[:order].delete(:stripe_token)
+  
     if @order.update(user_info_params)
       if stripe_token.present?
         process_payment(stripe_token)
@@ -23,6 +23,7 @@ class OrdersController < ApplicationController
       render :user_info
     end
   end
+  
 
   def save_order_details
     if @order.update(order_details_params)
@@ -46,7 +47,7 @@ class OrdersController < ApplicationController
     add_cart_items_to_order
     update_order_totals
 
-    stripe_token = params[:order].delete(:stripe_token) || params.delete(:stripe_token)
+    stripe_token = params.delete(:stripe_token)
     if @order.save
       if stripe_token.present?
         process_payment(stripe_token)
@@ -67,19 +68,19 @@ class OrdersController < ApplicationController
 
   def process_payment(stripe_token)
     Rails.logger.info "Processing payment with token: #{stripe_token}"
-
+  
     if stripe_token.blank?
       flash[:alert] = 'Stripe token is missing. Please try again.'
       redirect_to user_info_path(order_id: @order.id) and return
     end
-
+  
     update_order_totals
-
+  
     if @order.total_price < 0.50
       flash[:alert] = 'The total amount must be at least $0.50 CAD. Please add more items to your cart.'
       render :user_info and return
     end
-
+  
     begin
       charge = Stripe::Charge.create(
         amount: (@order.total_price * 100).to_i,
@@ -87,11 +88,10 @@ class OrdersController < ApplicationController
         source: stripe_token,
         description: "Order ##{@order.id}"
       )
-
+  
       Rails.logger.info "Stripe charge created: #{charge.id}"
       if charge.paid
-        update_order_totals(@order.total_price) # Update with the correct total
-        @order.update(payment_id: charge.id, status: 'completed')
+        @order.update(payment_id: charge.id, status: 'completed') # Ensure these fields are updated here
         session[:cart] = {}  # Clear the cart after successful payment
         redirect_to root_path, notice: 'Order was successfully placed!' and return
       else
@@ -104,7 +104,7 @@ class OrdersController < ApplicationController
       flash[:alert] = 'There was an error processing your payment. Please try again.'
       render :user_info and return
     end
-  end
+  end  
 
   def user_info
     @order = Order.find_or_initialize_by(id: params[:order_id]) do |order|
