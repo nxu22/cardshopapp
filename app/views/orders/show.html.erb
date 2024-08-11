@@ -1,0 +1,29 @@
+<!-- app/views/orders/show.html.erb -->
+
+<h1>Order Confirmation</h1>
+
+<p>Thank you for your order!</p>
+
+<p>Order Number: <%= @order.id %></p>
+
+<h2>Order Details</h2>
+<ul>
+  <% @order.order_items.each do |item| %>
+    <li>
+      <strong>Product:</strong> <%= item.product.name %> - 
+      <strong>Quantity:</strong> <%= item.quantity %> - 
+      <strong>Price:</strong> <%= number_to_currency(item.price) %>
+    </li>
+  <% end %>
+</ul>
+
+<p><strong>Total Price:</strong> <%= number_to_currency(@order.total_price) %></p>
+
+<h2>Shipping Information</h2>
+<p>
+  <strong>Address:</strong> <%= @order.address_line1 %>, 
+  <%= @order.city %>, 
+  <%= @order.province.name %>, 
+  <%= @order.postal_code %>, 
+  <%= @order.country %>
+</p>

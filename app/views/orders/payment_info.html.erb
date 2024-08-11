@@ -1,0 +1,59 @@
+<!-- app/views/orders/payment_info.html.erb -->
+<div class="container">
+  <div class="columns is-centered">
+    <div class="column is-half">
+      <h1 class="title">Checkout - Payment Information</h1>
+
+      <%= form_with(model: @order, url: payment_info_path(order_id: @order.id), method: :patch, local: true, id: 'payment-form') do |form| %>
+        <div class="box">
+          <h2 class="subtitle">Payment Information</h2>
+          <div id="card-element" class="control"></div>
+          <div id="card-errors" role="alert" class="help is-danger"></div>
+          <div class="control">
+            <%= form.submit 'Place Order', class: 'button is-primary' %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var stripe = Stripe('<%= Rails.configuration.stripe[:publishable_key] %>');
+    var elements = stripe.elements();
+    var card = elements.create('card', {
+      style: {
+        base: {
+          fontSize: '16px',
+          color: '#32325d',
+          '::placeholder': {
+            color: '#aab7c4'
+          }
+        }
+      }
+    });
+    card.mount('#card-element');
+
+    var form = document.getElementById('payment-form');
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      stripe.createToken(card).then(function(result) {
+        if (result.error) {
+          var errorElement = document.getElementById('card-errors');
+          errorElement.textContent = result.error.message;
+        } else {
+          console.log("Stripe Token created: ", result.token.id); // Log the token for debugging
+          var hiddenInput = document.createElement('input');
+          hiddenInput.setAttribute('type', 'hidden');
+          hiddenInput.setAttribute('name', 'stripe_token'); // Ensure the name matches the controller expectation
+          hiddenInput.setAttribute('value', result.token.id);
+          form.appendChild(hiddenInput);
+          form.submit(); // Ensure the form is submitted
+        }
+      });
+    });
+  });
+</script>

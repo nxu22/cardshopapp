@@ -1,0 +1,50 @@
+<section class="section">
+  <div class="container">
+    <h1 class="title is-2">Your Cart</h1>
+
+    <% if @cart_items.any? %>
+      <table class="table is-fullwidth is-striped">
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @cart_items.each do |item| %>
+            <tr>
+              <td><%= item.product.name %></td>
+              <td>
+                <%= form_with url: update_cart_path, method: :patch, local: true, class: 'field has-addons' do %>
+                  <div class="control">
+                    <%= number_field_tag "quantity[#{item.product.id}]", item.quantity, min: 1, class: 'input' %>
+                  </div>
+                  <div class="control">
+                    <%= hidden_field_tag :product_id, item.product.id %>
+                    <%= submit_tag 'Update', class: 'button is-info' %>
+                  </div>
+                <% end %>
+              </td>
+              <td>
+                <%= button_to 'Remove', remove_from_cart_path(product_id: item.product.id), method: :delete, class: 'button is-danger' %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <div class="content">
+        <p class="is-size-4"><strong>Total: <%= number_to_currency(@cart.total_price_with_taxes) %></strong></p>
+      </div>
+      <div class="buttons">
+        <%= button_to 'Proceed to Checkout', checkout_cart_path, method: :post, class: 'button is-primary' %>
+        <%= link_to 'Continue Shopping', products_path, class: 'button is-link' %>
+      </div>
+    <% else %>
+      <p class="has-text-centered">Your cart is empty.</p>
+      <div class="buttons is-centered">
+        <%= link_to 'Continue Shopping', products_path, class: 'button is-link' %>
+      </div>
+    <% end %>
+  </div>
+</section>
