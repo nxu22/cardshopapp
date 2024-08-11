@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>Cardshop</title>
   <%= csrf_meta_tags %>
@@ -11,50 +12,99 @@
 
 <body data-user-id="<%= current_user.try(:id) %>">
   <header>
-    <nav class="navbar" role="navigation" aria-label="main navigation">
-      <div class="navbar-brand">
-        <!-- Replace the existing Home link with this line -->
-        <%= link_to 'Home', root_path, class: 'navbar-item', data: { turbolinks: false } %>
-      </div>
+    <nav class="navbar is-light" role="navigation" aria-label="main navigation">
+      <div class="container">
+        <div class="navbar-brand">
+          <%= link_to 'Home', root_path, class: 'navbar-item', data: { turbolinks: false } %>
 
-      <div id="navbarBasicExample" class="navbar-menu">
-        <div class="navbar-start">
-          <%= link_to 'About', about_path, class: 'navbar-item', data: { turbolinks: false } %>
-          <%= link_to 'Contact', contact_path, class: 'navbar-item', data: { turbolinks: false } %>
+          <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </a>
         </div>
 
-        <div class="navbar-end">
-          
-          <% if user_signed_in? %>
-            <% if current_user.admin? %>
-              <div class="navbar-item">
-                <a class="button is-primary" href="<%= admin_dashboard_path %>">Admin Dashboard</a>
-              </div>
-            <% end %>
+        <div id="navbarBasicExample" class="navbar-menu">
+          <div class="navbar-start">
+            <%= link_to 'About', about_path, class: 'navbar-item', data: { turbolinks: false } %>
+            <%= link_to 'Contact', contact_path, class: 'navbar-item', data: { turbolinks: false } %>
+          </div>
+
+          <div class="navbar-end">
+            <% if user_signed_in? %>
             <div class="navbar-item">
-              <%= link_to 'Logout', destroy_user_session_path, method: :delete, data: { turbolinks: false }, class: "button is-light" %>
+              <%= link_to 'My Orders', orders_path, class: 'button is-primary' %>
             </div>
+            <% if current_user.admin? %>
+            <div class="navbar-item">
+              <%= link_to 'Admin Dashboard', admin_dashboard_path, class: 'button is-primary' %>
+            </div>
+            <% end %>
             <div class="navbar-item">
               <%= link_to 'Cart', cart_path, class: 'button is-link', data: { turbolinks: false } %>
             </div>
-          <% else %>
+            <div class="navbar-item">
+              <%= link_to 'Logout', destroy_user_session_path, method: :delete, data: { turbolinks: false }, class: "button is-light" %>
+            </div>
+            <% else %>
             <div class="navbar-item">
               <%= link_to 'Login', new_user_session_path, class: "button is-primary", data: { turbolinks: false } %>
             </div>
-            
             <div class="navbar-item">
               <%= link_to 'Sign up', new_user_registration_path, class: "button is-light", data: { turbolinks: false } %>
             </div>
-          <% end %>
+            <% end %>
+          </div>
         </div>
       </div>
     </nav>
   </header>
 
-  <% flash.each do |key, message| %>
-    <div class="notification is-<%= key %>"><%= message %></div>
-  <% end %>
+  <main class="section">
+    <div class="container">
+      <% flash.each do |key, message| %>
+      <div class="notification is-<%= key %>">
+        <button class="delete"></button>
+        <%= message %>
+      </div>
+      <% end %>
 
-  <%= yield %>
+      <%= yield %>
+    </div>
+  </main>
+  
+  <footer class="footer">
+    <div class="content has-text-centered">
+      <p>
+        &copy; 2024 Cardshop. All rights reserved.
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Get all "navbar-burger" elements
+      const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+
+      // Check if there are any navbar burgers
+      if ($navbarBurgers.length > 0) {
+
+        // Add a click event on each of them
+        $navbarBurgers.forEach(el => {
+          el.addEventListener('click', () => {
+
+            // Get the target from the "data-target" attribute
+            const target = el.dataset.target;
+            const $target = document.getElementById(target);
+
+            // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+            el.classList.toggle('is-active');
+            $target.classList.toggle('is-active');
+          });
+        });
+      }
+    });
+  </script>
 </body>
+
 </html>

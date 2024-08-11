@@ -5,6 +5,7 @@ class Product < ApplicationRecord
   has_one_attached :image
 
   validates :name, :price, :category, presence: true
+  validates :price, presence: true, numericality: { greater_than: 0 }
 
   # Existing search method for custom queries
   def self.search(query)

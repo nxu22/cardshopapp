@@ -1,18 +1,18 @@
-<h1 class="title is-1"><%= params[:category] ? params[:category] : 'All Products' %></h1>
+<h1 class="title is-1"><%= params[:category] || 'All Products' %></h1>
 
 <!-- Search and Filter Form -->
-<%= form_with url: products_path, method: :get, local: true, class: 'search-form' do %>
+<%= form_with url: products_path, method: :get, local: true, class: 'box' do %>
   <div class="field has-addons">
-    <div class="control">
+    <div class="control is-expanded">
       <input class="input" type="text" name="query" placeholder="Search for products by name or description...">
     </div>
     <div class="control">
       <button class="button is-link" type="submit">Search</button>
     </div>
   </div>
-  <div class="field">
-    <div class="control">
-      <div class="select">
+  <div class="field is-grouped">
+    <div class="control is-expanded">
+      <div class="select is-fullwidth">
         <select name="category">
           <option value="">All Categories</option>
           <% @categories.each do |category| %>
@@ -38,7 +38,6 @@
 <!-- Product Listing -->
 <% if @products.present? %>
   <div class="section">
-    <h2 class="title is-2"><%= params[:category] ? params[:category] : 'All Products' %></h2>
     <div class="columns is-multiline">
       <% @products.each do |product| %>
         <div class="column is-one-quarter">
@@ -58,9 +57,9 @@
                 </div>
               </div>
               <% if @user %>
-                <%= button_to 'Add to Cart', add_to_cart_path(product_id: product.id), method: :post, class: 'button is-link' %>
+                <%= button_to 'Add to Cart', add_to_cart_path(product_id: product.id), method: :post, class: 'button is-link is-fullwidth' %>
               <% else %>
-                <%= button_to 'Add to Cart',new_user_registration_path, method: :get, class: 'button is-link', data: { confirm: 'Please sign up to add items to your cart.' } %>
+                <%= button_to 'Add to Cart', new_user_registration_path, method: :get, class: 'button is-link is-fullwidth', data: { confirm: 'Please sign up to add items to your cart.' } %>
               <% end %>
             </div>
           </div>
@@ -68,7 +67,9 @@
       <% end %>
     </div>
   </div>
-  <%= paginate @products %>
+  <nav class="pagination is-centered" role="navigation" aria-label="pagination">
+    <%= paginate @products %>
+  </nav>
 <% else %>
-  <p>No products found.</p>
+  <p class="has-text-centered">No products found.</p>
 <% end %>

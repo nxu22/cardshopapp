@@ -9,6 +9,7 @@ class CartsController < ApplicationController
   def checkout
     @order = Order.new(user: current_user)
     if @order.save(validate: false)
+      @order.update(total_price: @cart.total_price_with_taxes)  # Recalculate after saving order
       puts "Created Order ID: #{@order.id}"  # Logging output
       redirect_to user_info_path(order_id: @order.id)
     else
@@ -45,5 +46,10 @@ class CartsController < ApplicationController
 
   def set_cart
     @cart = current_user.shopping_cart || ShoppingCart.create(user: current_user)
+    
+    session[:cart].each do |product_id, quantity|
+      product = Product.find(product_id)
+      @cart.add_product(product, quantity) unless @cart.cart_items.exists?(product_id: product_id)
+    end if session[:cart].present?
   end
 end
